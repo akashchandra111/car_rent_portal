@@ -242,6 +242,10 @@ public class UserModel implements UserModelInterface {
 		return this.update(id, "wallet", wallet);
 	}
 	
+	public boolean updatePassword(String id, String password)	{
+		return this.update(id, "password", password);
+	}
+	
 	public Person getPerson(String id)	{
 		if(this.isIdPresent(id))	{
 			return new Person(id, this.getFirstName(id), this.getLastName(id), this.getMobileNumber(id), this.getGovtIdType(id), this.getGovtIdNumber(id),

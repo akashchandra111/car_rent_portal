@@ -100,11 +100,64 @@ public class BookingModel implements BookingModelInterface {
 			while(rs.next())	{
 				returnIt = rs.getString(1);
 			}
-			debug.printMessage("get", "id: " + id + " " + whatToGet + ": " + returnIt);
+			debug.printMessage("get", " car no: " + id + " " + whatToGet + ": " + returnIt);
 			return returnIt;
 		}
 		catch (SQLException e) {
 			debug.printMessage("get", "cannot get the data");
+			e.printStackTrace();
+			return "";
+		}
+	}
+	 
+	public String getByCarId(String id, String whatToGet)	{
+		String query = String.format("select %s from car_status where car_id=?", whatToGet);
+		
+		try {
+			BookingModel.stmt = this.dbConnection.prepareStatement(query);
+			BookingModel.stmt.setString(1, id);
+			
+			ResultSet rs = BookingModel.stmt.executeQuery();
+			String returnIt = "";
+			
+			while(rs.next())	{
+				returnIt = rs.getString(1);
+			}
+			debug.printMessage("get", "car id: " + id + " " + whatToGet + ": " + returnIt);
+			return returnIt;
+		}
+		catch (SQLException e) {
+			debug.printMessage("get", "cannot get the data");
+			e.printStackTrace();
+			return "";
+		}
+	}
+	
+	public String getCarNumber(String id)	{
+		return this.getByCarId(id, "car_no");
+	}
+	
+	public String bookCarofId(String id)	{
+		String query = "select car_no from car_status where car_id=? and status='available'";
+		
+		try {
+			BookingModel.stmt = this.dbConnection.prepareStatement(query);
+			BookingModel.stmt.setString(1, id);
+			
+			ResultSet rs = BookingModel.stmt.executeQuery();
+			String returnIt = "";
+			
+			while(rs.next())	{
+				returnIt = rs.getString(1);
+			}
+			
+			this.updateStatus(returnIt, "booked");
+			
+			debug.printMessage("bookCarOfId", "car id: " + id + " " + "car_no" + ": " + returnIt);
+			return returnIt;
+		}
+		catch (SQLException e) {
+			debug.printMessage("bookCarOfId", "cannot update the data");
 			e.printStackTrace();
 			return "";
 		}

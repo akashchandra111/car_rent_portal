@@ -26,7 +26,7 @@
 
 	<%
 		String id = (String) request.getSession().getAttribute("session_id");
-		String carId = (String) request.getSession().getAttribute("carid");
+		String carId = (String) request.getParameter("carid");
 		UserController user = (UserController) request.getSession().getAttribute("user_controller");
 
 		if (id != null && !user.getFirstName(id).equals("")) {
@@ -58,7 +58,7 @@
 					class="material-icons">menu</i>
 				</a>
 				<div class="brand-logo">
-					<a href="#"> RentoCar </a>
+					<a href="User.jsp"> RentoCar </a>
 				</div>
 				<ul class="right hide-on-med-and-down">
 					<li><a href="#modalwallet"
@@ -68,8 +68,7 @@
 						data-target="booking_dropdown">Booking</a></li>
 					<!-- Booking Dropdown -->
 					<ul id="booking_dropdown" class="dropdown-content">
-						<li><a href="RentCar.jsp" class="indigo-text">Rent a car</a></li>
-						<li><a href="History.jsp" class="indigo-text">History</a></li>
+						<li><a href="UserHistory.jsp" class="indigo-text">History</a></li>
 					</ul>
 					<li><a href="#username"
 						class="waves-effect waves-dark dropdown-trigger"
@@ -104,13 +103,9 @@
 				style="margin-left: 5%;">
 				<li>
 					<div class="collapsible-header">Booking</div>
+					
 					<div class="collapsible-body">
-						<a href="RentCar.jsp"
-							class="waves-effect waves-light modal-trigger"
-							style="margin-left: 5%;">Rent a Car</a>
-					</div>
-					<div class="collapsible-body">
-						<a href="History.jsp"
+						<a href="UserHistory.jsp"
 							class="waves-effect waves-light modal-trigger"
 							style="margin-left: 5%;">History</a>
 					</div>
@@ -148,9 +143,6 @@
 				</div>
 				<div class="card-content">
 					<span class="card-title activator grey-text text-darken-4"> <%= selectedCarName%> <i class="material-icons right">more_vert</i></span>
-						
-						
-						
 				</div>
 				<a href="ChooseCar.jsp" class="btn indigo" style="margin-top:0;margin-bottom:2%;margin-left:0;">Choose Another</a>
 
@@ -161,59 +153,63 @@
 						<b>Description:</b> <%= selectedCarDescription %><br>
 						<b>Type:</b> <%= selectedCarType %><br>
 						<b>Mileage:</b> <%= selectedCarMileage %><br>
-						<b>Cost:</b> <%= selectedCarCost %>/hr<br>
+						<b >Cost:</b> <span id="car_cost"><%= selectedCarCost %></span>/hr<br>
 						<b>Seats:</b> <%= selectedCarSeaters %><br>
 					</p>
 				</div>
 			</div>
 	
-			<div class="col s12 m5 l8 ">				<!------Opening the form------->
+			<div class="col s12 m5 l8 ">
+				<form method="get" action="rentcar">
 				<div class="booking-form" style="margin-left:4%;">
 					<div class="input-field">
-						<input type="text" id="autocomplete-input" class="autocomplete">
+						<input type="text" id="from_location" class="autocomplete">
 						<label for="autocomplete-input black-text darken-3">From</label>
 					</div>
 
 					<div class="input-field">
-						<input type="text" id="autocomplete-input" class="autocomplete">
+						<input type="text" id="to_location" class="autocomplete">
 						<label for="autocomplete-input">To</label>
 					</div>
 
 					<div>
 						<div class="input-field col s6">
-							<input type="text" id="date-picker1" class="validate datepicker">
-							<label for="date-picker1">Start Date</label>
+							<input type="text" id="start_date" class="validate datepicker">
+							<label for="start_date">Start Date</label>
 						</div>
 
 						<div class="input-field col s6">
-							<input type="text" id="time-picker1" class="validate timepicker">
-							<label for="time-picker1">Start Time</label>
+							<input type="text" id="start_time" class="validate timepicker">
+							<label for="start_time">Start Time</label>
 						</div>
 					</div>
 
 					<div>
 						<div class="input-field col s6">
-							<input type="text" id="date-picker2" class="validate datepicker">
-							<label for="date-picker2">End Date</label>
+							<input type="text" id="end_date" class="validate datepicker">
+							<label for="end_date">End Date</label>
 						</div>
 
 						<div class="input-field col s6">
-							<input type="text" id="time-picker2" class="validate timepicker">
-							<label for="time-picker2">End Time</label>
+							<input type="text" id="end_time" class="validate timepicker">
+							<label for="end_time">End Time</label>
 						</div>
 					</div>
+				<h4>
+						Cost: <span id="calculated_cost">0</span>
+						<span id="car_id" class="hide"><%= carId %></span>
+						<span class="Get-Price">
+							<label for="Get-Price">Rs</label>
+						</span>
+						<a href="#" class="btn indigo" id="check_rate">Check rate</a>
+				</h4>
 					<div>
-						<h4>
-							<p class="Get-Price">
-								Cost: <label for="Get-Price">Rs </label>
-							</p>
-						</h4>
-						<a class="waves-effect waves-light btn indigo darken-3">Proceed
-							to pay</a>
-
+						<button id="submit" class="waves-effect waves-light btn indigo darken-3">Proceed to pay</button>
 					</div>
-
 				</div>
+				</form>
+				
+
 			</div>
 			<!-------Closing the form-------->
 		</div>
@@ -295,14 +291,73 @@
 
          //Time picker
         $(document).ready(function(){
-            $('.timepicker').timepicker();
+            $('.timepicker').timepicker(
+            	{
+            		twelveHour: false	
+            	}		
+            );
         });
 
         //Date picker
         $(document).ready(function(){
-            $('.datepicker').datepicker();
+            $('.datepicker').datepicker(
+            	{
+            		 //format: 'dd-mm-yyyy'
+            	}
+            );
         });
-                }
+        
+   	 $("#submit").click(function(e){
+         e.preventDefault();
+         $('#login').show();
+       $.ajax({type: "POST",
+               url: "rentcar",
+               data: { 
+            	   car_id: $("#car_id")[0].innerHTML,
+            	   from_location: $("#from_location").val(),
+            	   to_location: $("#to_location").val(),
+            	   start_date: $("#start_date").val(),
+            	   start_time: $("#start_time").val(),
+            	   end_date: $("#end_date").val(),
+            	   end_time: $("#end_time").val(),
+            	   calculated_cost: $("#calculated_cost")[0].innerHTML
+            	},
+               success: function(result){
+            	   if(result == "success")	{
+            		   console.log(result);
+            		   M.toast({html: 'Car Booked!'});
+            	   		setTimeout(function()	{
+            		   		window.location.href = "User.jsp";
+            	   			}, 1000);
+            	   }
+            	   else	{
+            		   console.log(result);
+            		   M.toast({html: 'Car booking failed!, please try after sometime!'});
+            		   setTimeout(
+							function()	{
+								
+							},
+							1000
+            		   );
+            	   }
+               }});
+     });
+                
+        $('#check_rate').click(
+        	()=>	{
+        		start_date = new Date($('#start_date').val() + ' ' + $('#start_time').val());
+        		end_date = new Date($('#end_date').val() + ' ' + $('#end_time').val());
+        		
+        		//console.log("Start Date: " + start_date + " " + "End Date: " + end_date);
+        		date_diff = end_date - start_date;
+        		date_diff_hrs = date_diff/3600000;
+        		car_cost = $('#car_cost')[0].innerHTML;
+        		total_cost = parseInt(date_diff_hrs) * parseInt(car_cost);
+				//console.log(date_diff_hrs + ' ' + car_cost + ' ' + total_cost);
+        		$('#calculated_cost')[0].innerHTML = total_cost;
+        	}		
+        );
+          }
          );
                
       </script>

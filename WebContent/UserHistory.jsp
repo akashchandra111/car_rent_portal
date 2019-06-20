@@ -118,7 +118,80 @@
 			</ul>
 		</li>
 	</ul>
+	
+			<div id="modalwallet" class="modal">
+			<form class="form" action="addwallet" method="post">
+				<div class="row container" style="margin-top: 2%;">
+					<div class="col s12">
+						<div class="modal-content">
+							<h4>Add Money</h4>
+						</div>
+					</div>
+				</div>
+				<div class="row container">
+					<div class="col s6 l8">
+						<div class="input-field ">
 
+							<input id="amount" name="amount" type="text" class="validate">
+							<label for="money">Enter Amount </label>
+						</div>
+					</div>
+					<div class="col s6 l4">
+						<div class="modal-footer">
+
+							<button type="submit"
+								class="modal-close waves-effect waves-indigo btn left indigo "
+								onclick="M.toast({html: 'Money added!'})"
+								style="margin-left: 2%;">Add Money</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	
+		<!-- JQuery -->
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<!-- Compiled and minified JavaScript -->
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+	<!-- Initializing all the materialize elements -->
+	<script type="text/javascript">
+         $(document).ready(
+         	()=>	{
+         		// Sidenav initialization
+            	$('.sidenav').sidenav();
+
+         		// Slider initialization and params 
+         		$('.slider').slider({
+         				indicators: false,
+         				height: 450,
+         				interval: 3000
+         			}
+         		);
+
+				//Dropdown initialization
+				$('.dropdown-trigger').dropdown();
+
+         		// Modal initialization
+         		$('.modal').modal();
+
+         		// Form initialization
+         		$('select').formSelect();
+
+         		// $('.datepicker').datepicker();
+         		// $('.timepicker').timepicker();
+         		$('.modal').modal();
+         		 
+         		//sidenav collapsible initialization
+         		
+         		$('#collapsibleBooking').collapsible();
+         		$('#collapsibleAccount').collapsible();
+         		 
+         	}
+         	
+         );
+      </script>
 	
 	<%
 		} else {

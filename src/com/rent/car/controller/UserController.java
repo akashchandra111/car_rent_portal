@@ -132,6 +132,10 @@ public class UserController implements UserControllerInterface	{
 	public boolean updateWallet(String id, String wallet) {
 		return this.userModel.updateWallet(id, wallet);
 	}
+	
+	public boolean updatePassword(String id, String password)	{
+		return this.userModel.updatePassword(id, password);
+	}
 
 	@Override
 	public String get(String id, String whatToGet) {

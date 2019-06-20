@@ -70,4 +70,16 @@ public class BookingController implements BookingControllerInterface	{
 	public String getCurrentBookedCars()	{
 		return this.bookingModel.getCurrentBookedCars();
 	}
+	
+	public String getByCarId(String carId, String whatToGet)	{
+		return this.bookingModel.getByCarId(carId, whatToGet);
+	}
+	
+	public String getCarNumber(String carId)	{
+		return this.bookingModel.getCarNumber(carId);
+	}
+	
+	public String bookCarofId(String carId)	{
+		return this.bookingModel.bookCarofId(carId);
+	}
 }
