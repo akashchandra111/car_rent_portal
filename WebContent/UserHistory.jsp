@@ -150,6 +150,39 @@
 		</div>
 	</div>
 	
+	      <table class="container responsive-table">
+        <thead>
+          <tr>
+              <th>Start Time</th>
+              <th>End Time</th>
+              <th>Source Location</th>
+              <th>Destination Location</th>
+              <th>Total Amount</th>
+              <th>Amount Paid</th>
+              <th>Secret Key</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>Alvin</td>
+            <td>Eclair</td>
+            <td>$0.87</td>
+          </tr>
+          <tr>
+            <td>Alan</td>
+            <td>Jellybean</td>
+            <td>$3.76</td>
+          </tr>
+          <tr>
+            <td>Jonathan</td>
+            <td>Lollipop</td>
+            <td>$7.00</td>
+          </tr>
+        </tbody>
+      </table>	
+	
+	
 		<!-- JQuery -->
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 	<!-- Compiled and minified JavaScript -->

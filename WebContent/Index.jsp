@@ -96,11 +96,11 @@
                   <h4>Login</h4>
                </div>
                <div class="input-field">
-                  <input type="text" name="username" id="username" class="validate">
+                  <input type="text" name="username" id="username" class="validate" required>
                   <label for="username">Username/ Email/ Phone</label>
                </div>
                <div class="input-field">
-                  <input type="password" name="password" id="password" class="validate">
+                  <input type="password" name="password" id="password" class="validate" required>
                   <label for="password">Password</label>
                </div>
                <div id="logindiv" style="color:red;display:none">
@@ -123,15 +123,15 @@
                   <h4>Register with Us</h4>
                </div>
                <div class="input-field">
-                  <input type="text" name="firstname" id="firstname" class="validate">
+                  <input type="text" name="firstname" id="firstname" class="validate" required>
                   <label for="firstname">First name</label>
                </div>
                <div class="input-field">
-                  <input type="text" name="lastname" id="lastname" class="validate">
+                  <input type="text" name="lastname" id="lastname" class="validate" required>
                   <label for="lastname">Last name</label>
                </div>
                <div class="input-field">
-                  <input type="text" name="mobileno" id="mobileno" class="validate">
+                  <input type="text" name="mobileno" id="mobileno" class="validate" required>
                   <label for="mobileno">Mobile number</label>
                </div>
                <div class="row">
@@ -144,28 +144,28 @@
                      </select>
                   </div>
                   <div class="input-field col s8">
-                     <input type="text" name="verification_id" id="verification_id" class="validate">
+                     <input type="text" name="verification_id" id="verification_id" class="validate" required>
                      <label for="verification_id">UID number</label>
                   </div>
                </div>
                <div class="input-field">
-                  <input type="text" name="driving_id" id="driving_id" class="validate">
+                  <input type="text" name="driving_id" id="driving_id" class="validate" required>
                   <label for="username">Driving License Number</label>
                </div>
                <div class="input-field">
-                  <input type="text" name="username" id="username" class="validate">
+                  <input type="text" name="username" id="username" class="validate" required>
                   <label for="username">Username</label>
                </div>
                <div class="input-field">
-                  <input type="text" name="email" id="email" class="validate">
+                  <input type="text" name="email" id="email" class="validate" required>
                   <label for="username">Email</label>
                </div>
                <div class="input-field">
-                  <input type="password" name="password" id="password" class="validate">
+                  <input type="password" name="password" id="password" class="validate" required>
                   <label for="password">Password</label>
                </div>
                <div class="input-field">
-                  <input type="password" name="cpassword" id="cpassword" class="validate">
+                  <input type="password" name="cpassword" id="cpassword" class="validate" required>
                   <label for="cpassword">Confirm Password</label>
                </div>
             </div>
